@@ -27,7 +27,6 @@ inline void print(std::ostream &os, Ts&&... args){
     (os << ... << std::forward<Ts>(args));
 }
 
-
 template<typename... Ts>
 inline void print(Ts&&... args){
     print(std::cerr, std::forward<Ts>(args)...);
@@ -78,8 +77,6 @@ inline void errl(Ts&&... args){
     }
 }
 
-
-
 inline std::string getSizeStr(unsigned long long allocation, std::ostream& os = std::cerr){
     bool lessthat1mb = allocation < 1024;
     if(lessthat1mb){
@@ -103,7 +100,7 @@ inline std::string getSizeStr(unsigned long long allocation, std::ostream& os = 
     } 
 }
 
-inline bool strToUInt(std::string str, uint32_t& uint){
+inline bool convertToUint32_t(std::string str, uint32_t& uint){
     try {
         unsigned long temp_value = std::stoul(str, nullptr, 10);
         if (temp_value > std::numeric_limits<uint32_t>::max()) {
@@ -119,22 +116,23 @@ inline bool strToUInt(std::string str, uint32_t& uint){
     errl("'",str,"' is not a uint32_t!"); return false;
 }
 
-inline uint32_t getUserInput(std::string prompt, uint32_t min, uint32_t max){
-    uint32_t val = 0; bool valid = false;
-    while(!valid){
-        errl(prompt); std::string ans; std::cin >> ans; uint32_t uint;
-        if(!strToUInt(ans, uint)){errl();continue;}
-        if(uint < min){errl("Min value: ", min);}
-        else if(uint > max){errl("Max value: ", max);}
-        else{val = uint; errl("Value Accepted: ", val); valid = true;} errl();
-    } return val;
-}
-
-inline std::string getUserInput(std::string prompt){
+inline std::string getInputStr(std::string prompt){
     std::string val = "";
     errl(prompt); 
     std::cin >> val;
     return val;
+}
+
+inline uint32_t getInputUint32_t(std::string prompt, uint32_t min, uint32_t max){
+    uint32_t val = 0; bool valid = false;
+    while(!valid){
+        std::string ans = getInputStr(prompt);
+        uint32_t uint;
+        if(!convertToUint32_t(ans, uint)){errl();continue;}
+        if(uint < min){errl("Min value: ", min);}
+        else if(uint > max){errl("Max value: ", max);}
+        else{val = uint; errl("Value Accepted: ", val); valid = true;} errl();
+    } return val;
 }
 
 inline void enterToExit(){

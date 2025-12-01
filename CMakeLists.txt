@@ -13,4 +13,4 @@ elseif (MSVC)
     add_compile_options(/O2 /Ot /fp:fast)
 endif()
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp)
