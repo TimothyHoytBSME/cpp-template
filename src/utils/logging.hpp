@@ -131,15 +131,17 @@ inline uint32_t getInputUint32_t(std::string prompt, uint32_t min, uint32_t max)
         if(!convertToUint32_t(ans, uint)){errl();continue;}
         if(uint < min){errl("Min value: ", min);}
         else if(uint > max){errl("Max value: ", max);}
-        else{val = uint; errl("Value Accepted: ", val); valid = true;} errl();
+        else{val = uint; valid = true;} errl();
     } return val;
 }
 
 inline void enterToExit(){
-    errl("\nPress Enter To Exit...");
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    errl("\n\nPress Enter To Exit...");
+    std::string res;
+    std::getline(std::cin, res); 
     std::cin.get();
     std::cout<<"\n"<<std::flush;
+    exit(0);
 }
 
 inline void flushAll(){

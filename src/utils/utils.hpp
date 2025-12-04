@@ -3,13 +3,12 @@
 
 #include "logging.hpp"
 #include "baseTypes.hpp"
-#include "customarray.hpp"
+#include "customvector.hpp"
 #include "arrayPtr.hpp"
 
 inline void runTests(){
-    arrayTest();
     arrayPtrTest();
-    
+    vectorTest();
 }
 
 #endif // end of file
