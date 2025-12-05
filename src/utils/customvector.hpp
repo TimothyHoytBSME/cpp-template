@@ -407,7 +407,7 @@ inline void vectorTest(){
     errl("  After emplace_back of 100, 200 :");
     allgood = allgood && v6.size() == 2;
     errl("  size ", allgood? "OK" : "ERROR");
-    allgood = allgood && v5[0] == 100 && v5[1] == 200;
+    allgood = allgood && v6[0] == 100 && v6[1] == 200;
     errl("  vals ", allgood? "OK" : "ERROR")    ;
 
 
