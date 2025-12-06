@@ -116,13 +116,13 @@ inline uint32_t game_intro(){
         bool fire = game.tryToMakeFire();
         
         if(!fire){
-            lim = 2;
+            lim = 3;
 
             errl("You could:");
             errl();
             errl("  1: Go back to the house");
             errl("  2: Push on");
-            //todo try again
+            errl("  3: Try again");
             errl();
             sa = getInputUint32_t("What will you do?", 1, lim);
             startAction = sa;
@@ -139,9 +139,38 @@ inline uint32_t game_intro(){
                     err("soaked head to toe, ");
                 }
                 errl("you catch your breath and continue onward with a slight jog.");
+            }else if(sa==3){
+                fire = game.tryToMakeFire();
+                if(!fire){
+                    lim = 2;
+                    errl("You could:");
+                    errl();
+                    errl("  1: Go back to the house");
+                    errl("  2: Push on");
+                    errl();
+                    sa = getInputUint32_t("What will you do?", 1, lim);
+                    startAction = sa;
+                    if(sa==1){
+                        err("You reluctantly turn around, ");
+                        if(game.userWet){
+                            err("soaked head to toe, ");
+                        }
+                        errl("you suddenly realize your situation and decide to get more supplies.");
+                    }else if(sa==2){
+                        err("You catch your breath, ");
+                        if(game.userWet){
+                            err("soaked head to toe, ");
+                        }
+                        errl("you catch your breath and continue onward with a slight jog.");
+                    }
+                }
             }
-        }else{
+        }
+        
+        if(fire){
             lim = 2;
+            errl("You enjoy the warm fire for a bit.");
+            game.passTime(15);
             errl("You could:");
             errl();
             errl("  1: Go back to the house");
